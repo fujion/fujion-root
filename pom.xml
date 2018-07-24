@@ -44,6 +44,7 @@
 		<project.name>${project.artifactId}</project.name>
 		<webjar.name>${project.artifactId}</webjar.name>
 		<webjar.version>${project.version}</webjar.version>
+		<webjar.target>${project.build.directory}/classes/META-INF/resources/webjars/${webjar.name}/${webjar.version}</webjar.target>
 		<schemadir>${basedir}/target/classes/META-INF/resources/webjars/${webjar.name}/${project.version}/xsd/</schemadir>
 	</properties>
 
@@ -332,11 +333,9 @@
 								<skipMerge>true</skipMerge>
 								<yuiNoMunge>true</yuiNoMunge>
 								<closureCompilationLevel>WHITESPACE_ONLY</closureCompilationLevel>
-								<closureLanguageIn>ECMASCRIPT5_STRICT</closureLanguageIn>
-								<webappSourceDir>${basedir}/src/main/webjar</webappSourceDir>
-								<webappTargetDir>
-									${project.build.directory}/classes/META-INF/resources/webjars/${webjar.name}/${webjar.version}
-								</webappTargetDir>
+								<closureLanguageIn>ECMASCRIPT6_STRICT</closureLanguageIn>
+								<webappSourceDir>${webjar.target}</webappSourceDir>
+								<webappTargetDir>${webjar.target}</webappTargetDir>
 								<cssFinalFile>${webjar.name}.css</cssFinalFile>
 								<cssSourceDir>.</cssSourceDir>
 								<cssSourceIncludes>
@@ -355,7 +354,7 @@
 								</jsSourceExcludes>
 								<jsEngine>CLOSURE</jsEngine>
 							</configuration>
-							<phase>process-resources</phase>
+							<phase>compile</phase>
 							<goals>
 								<goal>minify</goal>
 							</goals>
