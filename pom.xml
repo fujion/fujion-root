@@ -45,7 +45,7 @@
 		<webjar.name>${project.artifactId}</webjar.name>
 		<webjar.version>${project.version}</webjar.version>
 		<webjar.target>${project.build.directory}/classes/META-INF/resources/webjars/${webjar.name}/${webjar.version}</webjar.target>
-		<schemadir>${basedir}/target/classes/META-INF/resources/webjars/${webjar.name}/${project.version}/xsd/</schemadir>
+		<webjar.schemadir>${webjar.target}/xsd/</webjar.schemadir>
 	</properties>
 
 	<scm>
