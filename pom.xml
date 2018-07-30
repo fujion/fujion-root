@@ -35,15 +35,16 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.springframework.version>5.0.7.RELEASE</org.springframework.version>
+		<org.springframework.version>5.0.8.RELEASE</org.springframework.version>
 		<jackson.version>2.9.6</jackson.version>
 		<servlet.api.version>3.1.0</servlet.api.version>
 		<java.version>1.8</java.version>
-		<node.version>v7.10.1</node.version>
-		<npm.version>4.2.0</npm.version>
+		<node.version>v10.7.0</node.version>
+		<npm.version>6.1.0</npm.version>
 		<project.name>${project.artifactId}</project.name>
 		<webjar.name>${project.artifactId}</webjar.name>
 		<webjar.version>${project.version}</webjar.version>
+		<webjar.source>${basedir}/src/main/webjar</webjar.source>
 		<webjar.target>${project.build.outputDirectory}/META-INF/resources/webjars/${webjar.name}/${webjar.version}</webjar.target>
 		<webjar.schemadir>${webjar.target}/xsd/</webjar.schemadir>
 	</properties>
@@ -271,7 +272,7 @@
 					<executions>
 						<execution>
 							<id>make-assembly</id> <!-- this is used for inheritance merges -->
-							<phase>package</phase> <!-- bind to the packaging phase -->
+							<phase>package</phase>
 							<goals>
 								<goal>single</goal>
 							</goals>
@@ -313,7 +314,7 @@
 								<outputDirectory>${webjar.target}</outputDirectory>
 								<resources>
 									<resource>
-										<directory>${basedir}/src/main/webjar</directory>
+										<directory>${webjar.source}</directory>
 									</resource>
 								</resources>
 							</configuration>
