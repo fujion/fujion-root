@@ -281,7 +281,7 @@
 				<plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
-					<version>9.4.8.v20171121</version>
+					<version>9.4.8.v20180619</version>
 					<configuration>
 						<webApp>
 							<contextPath>/${project.artifactId}</contextPath>
