@@ -332,7 +332,8 @@
 								<skipMerge>true</skipMerge>
 								<yuiNoMunge>true</yuiNoMunge>
 								<closureCompilationLevel>WHITESPACE_ONLY</closureCompilationLevel>
-								<closureLanguageIn>ECMASCRIPT6_STRICT</closureLanguageIn>
+								<closureLanguageIn>ECMASCRIPT_2018</closureLanguageIn>
+								<closureLanguageOut>NO_TRANSPILE</closureLanguageOut>
 								<webappSourceDir>${webjar.target}</webappSourceDir>
 								<webappTargetDir>${webjar.target}</webappTargetDir>
 								<cssFinalFile>${webjar.name}.css</cssFinalFile>
@@ -353,10 +354,45 @@
 								</jsSourceExcludes>
 								<jsEngine>CLOSURE</jsEngine>
 							</configuration>
-							<phase>compile</phase>
+							<phase>prepare-package</phase>
 							<goals>
 								<goal>minify</goal>
 							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+				        <dependency>
+				            <groupId>com.google.javascript</groupId>
+				            <artifactId>closure-compiler</artifactId>
+				            <version>v20180716</version>
+				            <optional>true</optional>
+				        </dependency>
+ 					</dependencies>
+				</plugin>
+				<plugin>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.8</version>
+					<executions>
+						<execution>
+							<id>initialize</id>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<phase>initialize</phase>
+						</execution>
+						<execution>
+							<id>precompile</id>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<phase>process-resources</phase>
+						</execution>
+						<execution>
+							<id>postcompile</id>
+							<goals>
+								<goal>run</goal>
+							</goals>
+							<phase>process-classes</phase>
 						</execution>
 					</executions>
 				</plugin>
@@ -414,6 +450,7 @@
 							<goals>
 								<goal>install-node-and-npm</goal>
 							</goals>
+							<phase>initialize</phase>
 							<configuration>
 								<nodeVersion>${node.version}</nodeVersion>
 								<npmVersion>${npm.version}</npmVersion>
@@ -424,6 +461,7 @@
 							<goals>
 								<goal>npm</goal>
 							</goals>
+							<phase>compile</phase>
 						</execution>
 					</executions>
 				</plugin>
