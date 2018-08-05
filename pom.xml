@@ -305,7 +305,7 @@
 					<executions>
 						<execution>
 							<id>copy-webjar-resources</id>
-							<phase>process-resources</phase>
+							<phase>process-classes</phase>
 							<goals>
 								<goal>copy-resources</goal>
 							</goals>
