@@ -5,11 +5,13 @@ if [[ "$TRAVIS_PULL_REQUEST" != 'false' ]]; then
 fi
 
 if [[ "$TRAVIS_BRANCH" = 'master' ]]; then
+  echo "Deploying branch $TRAVIS_BRANCH..."
   mvn -V -B -s travis/settings.xml clean deploy -DskipTests
   exit 0
 fi
 
-if [[ "$TRAVIS_BRANCH" =~ ^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$ ]]; then
+if [[ "$TRAVIS_BRANCH" =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+  echo "Deploying branch $TRAVIS_BRANCH..."
   openssl aes-256-cbc -K $encrypted_b90015baf6e6_key -iv $encrypted_b90015baf6e6_iv -in travis/codesigning.asc.enc -out travis/codesigning.asc -d
   gpg --fast-import travis/codesigning.asc
   mvn -V -B -s travis/settings.xml clean deploy -P sign -DskipTests
