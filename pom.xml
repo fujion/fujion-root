@@ -364,7 +364,7 @@
 				        <dependency>
 				            <groupId>com.google.javascript</groupId>
 				            <artifactId>closure-compiler</artifactId>
-				            <version>v20180716</version>
+				            <version>v20180805</version>
 				            <optional>true</optional>
 				        </dependency>
  					</dependencies>
