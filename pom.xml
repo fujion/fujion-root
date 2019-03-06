@@ -3,7 +3,7 @@
 
 	<groupId>org.fujion</groupId>
 	<artifactId>fujion-root</artifactId>
-	<version>2.1.2-SNAPSHOT</version>
+	<version>2.1.2</version>
 	<packaging>pom</packaging>
 	<name>Fujion Framework Root POM</name>
 	<description>Fujion Framework Root POM</description>
@@ -54,7 +54,7 @@
 		<connection>scm:git:https://github.com/fujion/fujion-root</connection>
 		<developerConnection>scm:git:https://github.com/fujion/fujion-root</developerConnection>
 		<url>https://github.com/fujion/fujion-root</url>
-		<tag>HEAD</tag>
+		<tag>2.1.2</tag>
 	</scm>
 
 	<distributionManagement>
