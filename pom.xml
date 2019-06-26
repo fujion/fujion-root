@@ -34,12 +34,16 @@
 	</licenses>
 
 	<properties>
+		<fujion.debug>false</fujion.debug>
+		<skip.minification>true</skip.minification>
+		<skip.minification.js>${skip.minification}</skip.minification.js>
+		<skip.minification.css>${skip.minification}</skip.minification.css>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.springframework.version>5.1.8.RELEASE</org.springframework.version>
 		<jackson.version>2.9.9</jackson.version>
 		<servlet.api.version>3.1.0</servlet.api.version>
 		<java.version>1.8</java.version>
-		<node.version>v11.8.0</node.version>
+		<node.version>v12.4.0</node.version>
 		<npm.version>6.9.0</npm.version>
 		<log4j.version>2.11.2</log4j.version>
 		<project.name>${project.artifactId}</project.name>
@@ -323,55 +327,6 @@
 					</executions>
 				</plugin>
 				<plugin>
-					<groupId>com.samaxes.maven</groupId>
-					<artifactId>minify-maven-plugin</artifactId>
-					<version>1.7.6</version>
-					<executions>
-						<execution>
-							<id>default-minify</id>
-							<configuration>
-								<skipMerge>true</skipMerge>
-								<yuiNoMunge>true</yuiNoMunge>
-								<closureCompilationLevel>WHITESPACE_ONLY</closureCompilationLevel>
-								<closureLanguageIn>ECMASCRIPT_2018</closureLanguageIn>
-								<closureLanguageOut>NO_TRANSPILE</closureLanguageOut>
-								<webappSourceDir>${webjar.target}</webappSourceDir>
-								<webappTargetDir>${webjar.target}</webappTargetDir>
-								<cssFinalFile>${webjar.name}.css</cssFinalFile>
-								<cssSourceDir>.</cssSourceDir>
-								<cssSourceIncludes>
-									<cssSourceInclude>**/*.css</cssSourceInclude>
-								</cssSourceIncludes>
-								<cssSourceExcludes>
-									<cssSourceExclude>**/*.min.css</cssSourceExclude>
-								</cssSourceExcludes>
-								<jsFinalFile>${webjar.name}.js</jsFinalFile>
-								<jsSourceDir>.</jsSourceDir>
-								<jsSourceIncludes>
-									<jsSourceInclude>**/*.js</jsSourceInclude>
-								</jsSourceIncludes>
-								<jsSourceExcludes>
-									<jsSourceExclude>**/*.min.js</jsSourceExclude>
-								</jsSourceExcludes>
-								<jsEngine>CLOSURE</jsEngine>
-							</configuration>
-							<phase>prepare-package</phase>
-							<goals>
-								<goal>minify</goal>
-							</goals>
-						</execution>
-					</executions>
-					<dependencies>
-						<!-- minify-maven-plugin does not work with newer versions of closure-compiler -->
-				        <dependency>
-				            <groupId>com.google.javascript</groupId>
-				            <artifactId>closure-compiler</artifactId>
-				            <version>v20180805</version>
-				            <optional>true</optional>
-				        </dependency>
- 					</dependencies>
-				</plugin>
-				<plugin>
 					<artifactId>maven-antrun-plugin</artifactId>
 					<version>1.8</version>
 					<executions>
@@ -413,6 +368,66 @@
 						<serverId>sonatype</serverId>
 						<autoReleaseAfterClose>true</autoReleaseAfterClose>
 					</configuration>
+				</plugin>
+				<!-- Minification -->
+				<plugin>
+					<groupId>com.github.blutorange</groupId>
+					<artifactId>closure-compiler-maven-plugin</artifactId>
+					<version>2.7.0</version>
+					<executions>
+						<execution>
+							<id>default-minify</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>minify</goal>
+							</goals>
+							<configuration>
+								<skip>${skip.minification.js}</skip>
+								<baseSourceDir>${webjar.target}</baseSourceDir>
+								<baseTargetDir>${webjar.target}</baseTargetDir>
+								<sourceDir>.</sourceDir>
+								<targetDir>.</targetDir>
+								<includes>
+									<include>**/*.js</include>
+								</includes>
+								<excludes>
+									<exclude>**/*.min.js</exclude>
+								</excludes>
+								<skipMerge>true</skipMerge>
+								<closureDebug>${fujion.debug}</closureDebug>
+								<closureCreateSourceMap>${fujion.debug}</closureCreateSourceMap>
+								<closureCompilationLevel>WHITESPACE_ONLY</closureCompilationLevel>
+								<closureLanguageIn>ECMASCRIPT_2018</closureLanguageIn>
+								<closureLanguageOut>ECMASCRIPT_2017</closureLanguageOut>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>net.alchim31.maven</groupId>
+					<artifactId>yuicompressor-maven-plugin</artifactId>
+					<version>1.5.1</version>
+					<executions>
+						<execution>
+							<id>default-minify</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>compress</goal>
+							</goals>
+							<configuration>
+								<skip>${skip.minification.css}</skip>
+								<sourceDirectory>${webjar.target}</sourceDirectory>
+								<outputDirectory>${webjar.target}</outputDirectory>
+								<includes>
+									<include>**/*.css</include>
+								</includes>
+								<excludes>
+									<exclude>**/*.min.css</exclude>
+									<exclude>**/*.js</exclude>
+								</excludes>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 				<!-- End common build plugins -->
 				<!-- LESS stylesheet compiler -->
@@ -467,6 +482,37 @@
 						</execution>
 					</executions>
 				</plugin>
+				<plugin>
+					<groupId>com.jamesward</groupId>
+					<artifactId>unsnapshot-maven-plugin</artifactId>
+					<version>0.2</version>
+					<executions>
+						<execution>
+							<phase>initialize</phase>
+							<goals>
+								<goal>unsnapshot</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.0.0-M2</version>
+					<executions>
+						<execution>
+							<id>enforce</id>
+							<goals>
+								<goal>enforce</goal>
+							</goals>
+							<configuration>
+								<fail>false</fail>
+								<rules>
+									<DependencyConvergence />
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -477,11 +523,27 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.jamesward</groupId>
+				<artifactId>unsnapshot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.github.blutorange</groupId>
+				<artifactId>closure-compiler-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>yuicompressor-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 
