@@ -26,8 +26,8 @@
 			<name>Apache Software License 2.0</name>
 			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
 			<comments>
-				This Source Code Form is subject to the terms of the Apache License, v. 2.0. 
-				If a copy of the license was not distributed with this file, You can obtain one at 
+				This Source Code Form is subject to the terms of the Apache License, v. 2.0.
+				If a copy of the license was not distributed with this file, You can obtain one at
 				http://www.apache.org/licenses/LICENSE-2.0.
 			</comments>
 		</license>
@@ -83,7 +83,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-archetype-plugin</artifactId>
-					<version>3.0.1</version>
+					<version>3.1.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -113,7 +113,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.1.0</version>
+					<version>3.1.1</version>
 					<configuration>
 						<failOnError>false</failOnError>
 						<quiet>true</quiet>
@@ -145,7 +145,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>3.0.1</version>
+					<version>3.1.0</version>
 					<executions>
 						<execution>
 							<id>attach-sources</id>
