@@ -507,7 +507,7 @@
 							<configuration>
 								<fail>false</fail>
 								<rules>
-									<DependencyConvergence />
+									<dependencyConvergence />
 								</rules>
 							</configuration>
 						</execution>
