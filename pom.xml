@@ -553,7 +553,9 @@
 		<profile>
 			<id>sign</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>gpg.passphrase</name>
+				</property>
 			</activation>
 			<build>
 				<plugins>
