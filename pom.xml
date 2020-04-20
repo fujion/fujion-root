@@ -364,9 +364,30 @@
 							<phase>initialize</phase>
 							<configuration>
 								<executable>npm</executable>
+								<skip>true</skip>
 								<arguments>
 									<argument>ci</argument>
 								</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>generate-schema</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>java</goal>
+							</goals>
+							<configuration>
+								<mainClass>org.fujion.schema.SchemaGenerator</mainClass>
+								<classpathScope>compile</classpathScope>
+								<skip>true</skip>
+								<!--
+								<arguments>
+									<argument>-v=${project.version}</argument>
+									<argument>-t=??? Extension</argument>
+									<argument>-c=org.acme.???.???Component</argument>
+									<argument>${webjar.schemadir}fsp-???.xsd</argument>
+								</arguments>
+								-->
 							</configuration>
 						</execution>
 					</executions>
