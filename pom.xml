@@ -361,12 +361,12 @@
 							<goals>
 								<goal>exec</goal>
 							</goals>
-							<phase>initialize</phase>
+							<phase>compile</phase>
 							<configuration>
 								<executable>npm</executable>
 								<skip>true</skip>
 								<arguments>
-									<argument>ci</argument>
+									<argument>install</argument>
 								</arguments>
 							</configuration>
 						</execution>
