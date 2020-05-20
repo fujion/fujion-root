@@ -39,11 +39,11 @@
 		<skip.minification.js>${skip.minification}</skip.minification.js>
 		<skip.minification.css>${skip.minification}</skip.minification.css>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.springframework.version>5.2.5.RELEASE</org.springframework.version>
+		<org.springframework.version>5.2.6.RELEASE</org.springframework.version>
 		<jackson.version>2.11.0</jackson.version>
 		<servlet.api.version>3.1.0</servlet.api.version>
 		<java.version>1.8</java.version>
-		<log4j.version>2.13.1</log4j.version>
+		<log4j.version>2.13.3</log4j.version>
 		<project.name>${project.artifactId}</project.name>
 		<webjar.name>${project.artifactId}</webjar.name>
 		<webjar.version>${project.version}</webjar.version>
