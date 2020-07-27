@@ -216,12 +216,20 @@
 					<configuration>
 						<archive>
 							<manifestEntries>
-								<Implementation-Version>${project.version}.${buildNumber}
+								<Implementation-Version>
+									${project.version}.${buildNumber}
 								</Implementation-Version>
-								<Implementation-URL>${project.scm.url}</Implementation-URL>
-								<Implementation-Title>${project.name}
+								<Implementation-Build-Date>
+									${maven.build.timestamp}
+								</Implementation-Build-Date>
+								<Implementation-URL>
+									${project.scm.url}
+								</Implementation-URL>
+								<Implementation-Title>
+									${project.name}
 								</Implementation-Title>
-								<Implementation-Vendor>${project.organization.name}
+								<Implementation-Vendor>
+									${project.organization.name}
 								</Implementation-Vendor>
 							</manifestEntries>
 						</archive>
@@ -235,12 +243,20 @@
 						<skipIfEmpty>true</skipIfEmpty>
 						<archive>
 							<manifestEntries>
-								<Implementation-Version>${project.version}.${buildNumber}
+								<Implementation-Version>
+									${project.version}.${buildNumber}
 								</Implementation-Version>
-								<Implementation-URL>${project.scm.url}</Implementation-URL>
-								<Implementation-Title>${project.name}
+								<Implementation-Build-Date>
+									${maven.build.timestamp}
+								</Implementation-Build-Date>
+								<Implementation-URL>
+									${project.scm.url}
+								</Implementation-URL>
+								<Implementation-Title>
+									${project.name}
 								</Implementation-Title>
-								<Implementation-Vendor>${project.organization.name}
+								<Implementation-Vendor>
+									${project.organization.name}
 								</Implementation-Vendor>
 							</manifestEntries>
 						</archive>
@@ -256,22 +272,6 @@
 				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
 					<version>3.2.0</version>
-					<configuration>
-						<archive>
-							<!-- At this point, only the jar and war assembly formats support 
-								the <archive> configuration element -->
-							<manifestEntries>
-								<Implementation-Version>${project.version}.${buildNumber}
-								</Implementation-Version>
-								<Implementation-URL>${scmBranch}</Implementation-URL>
-								<!-- append 'assembly' due to inability to reference classifier expression -->
-								<Implementation-Title>${project.build.finalName}:${project.packaging}:assembly
-								</Implementation-Title>
-								<Implementation-Vendor>${build.organization}
-								</Implementation-Vendor>
-							</manifestEntries>
-						</archive>
-					</configuration>
 					<executions>
 						<execution>
 							<id>make-assembly</id> <!-- this is used for inheritance merges -->
@@ -717,7 +717,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-text</artifactId>
-				<version>1.8</version>
+				<version>1.9</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
