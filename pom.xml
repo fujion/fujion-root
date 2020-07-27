@@ -521,6 +521,9 @@
 								<fail>false</fail>
 								<rules>
 									<dependencyConvergence />
+									<requireMavenVersion>
+										<version>3.0.0</version>
+									</requireMavenVersion>
 								</rules>
 							</configuration>
 						</execution>
