@@ -115,6 +115,7 @@
 					<configuration>
 						<failOnError>false</failOnError>
 						<quiet>true</quiet>
+						<detectOfflineLinks>false</detectOfflineLinks>
 					</configuration>
 					<executions>
 						<execution>
