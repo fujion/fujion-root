@@ -320,6 +320,9 @@
 									<resource>
 										<directory>${webjar.source}</directory>
 									</resource>
+									<resource>
+										<directory>${project.build.directory}/webjar</directory>
+									</resource>
 								</resources>
 							</configuration>
 						</execution>
