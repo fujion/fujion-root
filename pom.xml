@@ -286,7 +286,7 @@
 				<plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
-					<version>9.4.31.v20200723</version>
+					<version>9.4.38.v20210224</version>
 					<configuration>
 						<webApp>
 							<contextPath>/${project.artifactId}</contextPath>
@@ -719,7 +719,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>3.11</version>
+				<version>3.12.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
