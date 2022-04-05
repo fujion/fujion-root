@@ -37,7 +37,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.name>${project.artifactId}</project.name>
 		<fujion.debug>false</fujion.debug>
-		<jackson.version>2.13.2</jackson.version>
+		<jackson.version>2.13.2.1</jackson.version>
 		<java.version>1.8</java.version>
 		<log4j.version>2.17.2</log4j.version>
 		<bootstrap.version>5.1.3</bootstrap.version>
