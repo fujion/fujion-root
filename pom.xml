@@ -41,7 +41,7 @@
 		<java.version>1.8</java.version>
 		<log4j.version>2.17.2</log4j.version>
 		<bootstrap.version>5.1.3</bootstrap.version>
-		<org.springframework.version>5.3.18</org.springframework.version>
+		<org.springframework.version>5.3.20</org.springframework.version>
 		<servlet.api.version>4.0.1</servlet.api.version>
 		<skip.minification.css>${skip.minification}</skip.minification.css>
 		<skip.minification.js>${skip.minification}</skip.minification.js>
