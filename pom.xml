@@ -3,7 +3,7 @@
 
 	<groupId>org.fujion</groupId>
 	<artifactId>fujion-root</artifactId>
-	<version>3.1.0</version>
+	<version>3.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Fujion Framework Root POM</name>
 	<description>Fujion Framework Root POM</description>
