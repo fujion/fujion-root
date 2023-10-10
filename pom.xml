@@ -51,6 +51,7 @@
 		<webjar.source>${basedir}/src/main/webjar</webjar.source>
 		<webjar.target>${project.build.outputDirectory}/META-INF/resources/webjars/${webjar.name}/${webjar.version}</webjar.target>
 		<webjar.version>${project.version}</webjar.version>
+		<npm-install.skip>true</npm-install.skip>
 	</properties>
 
 	<scm>
@@ -369,7 +370,7 @@
 							<phase>compile</phase>
 							<configuration>
 								<executable>npm</executable>
-								<skip>true</skip>
+								<skip>${npm-install.skip}</skip>
 								<arguments>
 									<argument>install</argument>
 								</arguments>
@@ -572,9 +573,12 @@
 
 	<profiles>
 		<profile>
-			<id>sign</id>
+			<id>sign-artifacts</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
 			</activation>
 			<build>
 				<plugins>
