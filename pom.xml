@@ -44,15 +44,13 @@
         <bootstrap.version>5.3.2-SNAPSHOT</bootstrap.version>
         <org.springframework.version>6.0.12</org.springframework.version>
         <servlet.api.version>6.0.0</servlet.api.version>
-        <skip.minification.css>${skip.minification}</skip.minification.css>
-        <skip.minification.js>${skip.minification}</skip.minification.js>
-        <skip.minification>true</skip.minification>
         <webjar.compile.skip>true</webjar.compile.skip>
         <webjar.name>${project.artifactId}</webjar.name>
         <webjar.schemadir>${webjar.target}/xsd/</webjar.schemadir>
         <webjar.staging>${project.build.directory}/staging</webjar.staging>
         <webjar.source>${basedir}/src/main/webjar</webjar.source>
-        <webjar.target>${project.build.outputDirectory}/META-INF/resources/webjars/${webjar.name}/${webjar.version}</webjar.target>
+        <webjar.target>${project.build.outputDirectory}/META-INF/resources/webjars/${webjar.name}/${webjar.version}
+        </webjar.target>
         <webjar.version>${project.version}</webjar.version>
     </properties>
 
@@ -355,6 +353,12 @@
                                 <target>
                                     <mkdir dir="${webjar.target}"/>
                                     <mkdir dir="${webjar.staging}"/>
+                                    <copy todir="${webjar.staging}">
+                                        <fileset dir="${basedir}/staging"/>
+                                        <filterchain>
+                                            <expandproperties/>
+                                        </filterchain>
+                                    </copy>
                                 </target>
                             </configuration>
                         </execution>
@@ -391,6 +395,8 @@
                                 <workingDirectory>${webjar.staging}</workingDirectory>
                                 <arguments>
                                     <argument>install</argument>
+                                    <argument>--loglevel=silent</argument>
+                                    <argument>--no-update-notifier</argument>
                                 </arguments>
                             </configuration>
                         </execution>
@@ -426,98 +432,6 @@
                         <serverId>sonatype</serverId>
                         <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     </configuration>
-                </plugin>
-                <!-- Minification -->
-                <plugin>
-                    <groupId>com.samaxes.maven</groupId>
-                    <artifactId>minify-maven-plugin</artifactId>
-                    <version>1.7.6</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.blutorange</groupId>
-                    <artifactId>closure-compiler-maven-plugin</artifactId>
-                    <version>2.27.0</version>
-                    <executions>
-                        <execution>
-                            <id>default-minify</id>
-                            <phase>prepare-package</phase>
-                            <goals>
-                                <goal>minify</goal>
-                            </goals>
-                            <configuration>
-                                <skip>${skip.minification.js}</skip>
-                                <baseSourceDir>${webjar.target}</baseSourceDir>
-                                <baseTargetDir>${webjar.target}</baseTargetDir>
-                                <sourceDir>.</sourceDir>
-                                <targetDir>.</targetDir>
-                                <includes>
-                                    <include>**/*.js</include>
-                                </includes>
-                                <excludes>
-                                    <exclude>**/*.min.js</exclude>
-                                </excludes>
-                                <skipMerge>true</skipMerge>
-                                <closureDebug>${fujion.debug}</closureDebug>
-                                <closureCreateSourceMap>${fujion.debug}</closureCreateSourceMap>
-                                <closureCompilationLevel>WHITESPACE_ONLY</closureCompilationLevel>
-                                <closureLanguageIn>ECMASCRIPT_NEXT</closureLanguageIn>
-                                <closureLanguageOut>ECMASCRIPT_2017</closureLanguageOut>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>net.alchim31.maven</groupId>
-                    <artifactId>yuicompressor-maven-plugin</artifactId>
-                    <version>1.5.1</version>
-                    <executions>
-                        <execution>
-                            <id>default-minify</id>
-                            <phase>prepare-package</phase>
-                            <goals>
-                                <goal>compress</goal>
-                            </goals>
-                            <configuration>
-                                <skip>${skip.minification.css}</skip>
-                                <sourceDirectory>${webjar.target}</sourceDirectory>
-                                <outputDirectory>${webjar.target}</outputDirectory>
-                                <includes>
-                                    <include>**/*.css</include>
-                                </includes>
-                                <excludes>
-                                    <exclude>**/*.min.css</exclude>
-                                    <exclude>**/*.js</exclude>
-                                </excludes>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- End common build plugins -->
-                <!-- LESS stylesheet compiler -->
-                <plugin>
-                    <groupId>org.lesscss</groupId>
-                    <artifactId>lesscss-maven-plugin</artifactId>
-                    <version>1.7.0.1.1</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- SASS stylesheet compiler -->
-                <plugin>
-                    <groupId>nl.geodienstencentrum.maven</groupId>
-                    <artifactId>sass-maven-plugin</artifactId>
-                    <version>3.7.2</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>update-stylesheets</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>com.jamesward</groupId>
@@ -590,19 +504,41 @@
                 <groupId>com.jamesward</groupId>
                 <artifactId>unsnapshot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>com.github.blutorange</groupId>
-                <artifactId>closure-compiler-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>yuicompressor-maven-plugin</artifactId>
-            </plugin>
         </plugins>
 
     </build>
 
     <profiles>
+        <profile>
+            <id>jar-packaging</id>
+            <activation>
+                <property>
+                    <name>packaging</name>
+                    <value>jar</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>webjar-compile</id>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>webjar-compile</id>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>sign-artifacts</id>
             <activation>
