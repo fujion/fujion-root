@@ -118,6 +118,7 @@
 						<failOnError>false</failOnError>
 						<quiet>true</quiet>
 						<detectOfflineLinks>false</detectOfflineLinks>
+						<doclint>none</doclint>  <!-- Turnoff all checks -->
 					</configuration>
 					<executions>
 						<execution>
